@@ -50,7 +50,16 @@ Pastikan sudah terpasang:
 Install dependensi:
 
 ``` bash
-pip install -U pip
+apt update -y
+apt upgrade -y
+apt install python -y
+apt install ffmpeg -y
+pip install colorama
+apt install nano -y
+apt install git -y
+cd /sdcard
+git clone https://github.com/TeamAbabilCoded/snackv2
+cd snackv2
 ```
 
 ## Menjalankan
