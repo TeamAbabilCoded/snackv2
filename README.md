@@ -1,10 +1,10 @@
-# Auto Video Cutter Pro v2.0
+# 🎬 Auto Video Cutter Shorts/Reels Generator (Termux) Pro v2.0
 
 Auto Video Cutter Pro adalah aplikasi CLI berbasis Python untuk memotong
 video menjadi beberapa bagian secara otomatis dengan tampilan vertikal
 **9:16**.
 
-## Fitur
+## ✨ Fitur
 
 -   Potong video otomatis berdasarkan durasi minimum & maksimum.
 -   Output 720×1280 (9:16).
@@ -20,7 +20,7 @@ video menjadi beberapa bagian secara otomatis dengan tampilan vertikal
 -   Pengaturan melalui `config.py`.
 -   Menu pengaturan interaktif melalui `main.py`.
 
-## Struktur Folder
+## 📂 Struktur Folder
 
 ``` text
 project/
@@ -40,6 +40,16 @@ project/
 ```
 
 ## Instalasi
+
+# Storage Permission
+
+Jalankan:
+
+```bash
+termux-setup-storage
+```
+
+---
 
 Pastikan sudah terpasang:
 
@@ -121,12 +131,49 @@ cut_2_namafile.mp4
 ...
 ```
 
+---
+# 📁 Video
+
+Masukkan file berikut ke folder `video/`
+
+| File | keterangan |
+|---|---|
+| video input | video utama yang mau di edit |
+---
+
+# 📁 Assets
+
+Masukkan file berikut ke folder `assets/`
+
+| File | Fungsi |
+|---|---|
+| logo.png | watermark utama |
+| logo_top.jpg | logo tambahan kanan atas |
+| font.ttf | font text overlay |
+
+---
+
+
 ## Catatan
 
 -   Thumbnail embedded tidak selalu digunakan oleh semua aplikasi
     (misalnya Telegram dapat membuat thumbnail sendiri).
 -   Pastikan font dan aset tersedia di folder `assets`.
 
-## Lisensi
+
+# 📜 License
+
+MIT License
+
+---
+
+# ❤️ Credits
+- Muhammad Khairil
+- KarFeed
+  
+Powered by:
+- Python
+- FFmpeg
+- Termux
 
 Untuk penggunaan pribadi atau pengembangan sesuai kebutuhan.
