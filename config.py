@@ -9,7 +9,7 @@ OUTPUT_FOLDER = "cut"
 # FONT
 # =========================
 
-FONT_PATH = "assets/font.ttf"
+FONT_PATH = "assets/font.otf"
 
 # =========================
 # CUT DURATION (detik)
