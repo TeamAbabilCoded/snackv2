@@ -1,11 +1,80 @@
 from cutter import process_video
 import os
 import re
+import time
 import importlib
 import config
+from colorama import init, Fore, Style
+
+# =========================
+# WINDOWS UTF-8 SUPPORT
+# =========================
+
+os.system("")
+
+try:
+    os.system("chcp 65001 > nul")
+except Exception:
+    pass
+
+init(autoreset=True)
 
 CONFIG_PATH = "config.py"
 
+
+# =========================
+# SCREEN
+# =========================
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def banner():
+    G = Fore.GREEN
+    P = Fore.MAGENTA
+    W = Fore.WHITE
+    C = Fore.CYAN
+    R = Style.RESET_ALL
+
+    print(G + "╔══════════════════════════════════════════════════════════════════════════╗")
+    print(G + "║" + " " * 74 + G + "║")
+    print(G + "║" + P + "                      AUTO VIDEO CUTTER PRO v2.0".center(74) + G + "║")
+    print(G + "║" + " " * 74 + G + "║")
+
+    print(G + "║" + C + "      ▄▄▄▄                        ▄▄▄▄▄▄▄".ljust(74) + G + "║")
+    print(G + "║" + C + "    ▄██▀▀██▄        ██           ███▀▀▀▀▀        ██    ██".ljust(74) + G + "║")
+    print(G + "║" + C + "    ███  ███ ██ ██ ▀██▀▀ ▄███▄   ███      ██ ██ ▀██▀▀ ▀██▀▀ ▄█▀█▄ ████▄".ljust(74) + G + "║")
+    print(G + "║" + C + "    ███▀▀███ ██ ██  ██   ██ ██   ███      ██ ██  ██    ██   ██▄█▀ ██ ▀▀".ljust(74) + G + "║")
+    print(G + "║" + C + "    ███  ███ ▀██▀█  ██   ▀███▀   ▀███████ ▀██▀█  ██    ██   ▀█▄▄▄ ██".ljust(74) + G + "║")
+
+    print(G + "║" + " " * 74 + G + "║")
+    print(
+        G + "║" +
+        W + "         Author : " +
+        P + "Muhammad Khairil" +
+        W + " | Instagram : " +
+        P + "@KarFeedd".ljust(41) +
+        G + "║"
+    )
+    print(G + "║" + " " * 74 + G + "║")
+    print(G + "║" + W + "               Square Video 720x720 + Background 9:16".center(74) + G + "║")
+    print(G + "║" + " " * 74 + G + "║")
+    print(G + "╚══════════════════════════════════════════════════════════════════════════╝" + R)
+
+
+def refresh():
+    clear_screen()
+    banner()
+
+
+def pause(message="Tekan ENTER untuk lanjut..."):
+    input(f"\n{message}")
+
+
+# =========================
+# COLOR OPTIONS
+# =========================
 
 COLOR_OPTIONS = {
     "1": ("White", "white"),
@@ -76,17 +145,9 @@ COLOR_OPTIONS = {
 }
 
 
-def banner():
-    print(r"""
-╔══════════════════════════════════════════════════════╗
-║                                                      ║
-║             AUTO VIDEO CUTTER PRO v2.0              ║
-║                                                      ║
-║        Square Video 720x720 + Background 9:16        ║
-║                                                      ║
-╚══════════════════════════════════════════════════════╝
-""")
-
+# =========================
+# CONFIG
+# =========================
 
 def get_config_value(name, default):
     return getattr(config, name, default)
@@ -94,7 +155,7 @@ def get_config_value(name, default):
 
 def update_config(values):
     if not os.path.exists(CONFIG_PATH):
-        print("config.py tidak ditemukan.")
+        print("❌ config.py tidak ditemukan.")
         return False
 
     with open(CONFIG_PATH, "r", encoding="utf-8") as f:
@@ -105,12 +166,7 @@ def update_config(values):
         pattern = rf"^{key}\s*=.*$"
 
         if re.search(pattern, content, flags=re.MULTILINE):
-            content = re.sub(
-                pattern,
-                line,
-                content,
-                flags=re.MULTILINE
-            )
+            content = re.sub(pattern, line, content, flags=re.MULTILINE)
         else:
             content += f"\n{line}"
 
@@ -121,8 +177,17 @@ def update_config(values):
     return True
 
 
+# =========================
+# INPUT HELPERS
+# =========================
+
 def ask_int(label, default):
     while True:
+        refresh()
+        print("ATUR ULANG VIDEO")
+        print("=" * 50)
+        print("Tekan ENTER kalau ingin memakai nilai lama.\n")
+
         value = input(f"{label} [{default}]: ").strip()
 
         if value == "":
@@ -131,11 +196,13 @@ def ask_int(label, default):
         if value.isdigit():
             return int(value)
 
-        print("Input harus angka.")
+        print("\n❌ Input harus angka.")
+        pause()
 
 
 def print_color_menu(label):
-    print("\n" + "=" * 54)
+    print("ATUR WARNA")
+    print("=" * 54)
     print(f"PILIH {label}")
     print("=" * 54)
 
@@ -156,24 +223,42 @@ def print_color_menu(label):
 
 
 def ask_color(label, default):
-    print_color_menu(label)
-
     while True:
+        refresh()
+        print_color_menu(label)
+
         value = input(f"\nPilih {label} [default: {default}]: ").strip()
 
         if value == "":
+            refresh()
+            print(f"{label}")
+            print("=" * 50)
+            print(f"✔ Menggunakan default: {default}")
+            time.sleep(0.5)
             return f'"{default}"'
 
         if value in COLOR_OPTIONS:
             color_name, color_value = COLOR_OPTIONS[value]
-            print(f"{label} dipilih: {color_name} ({color_value})")
+
+            refresh()
+            print(f"{label}")
+            print("=" * 50)
+            print(f"✔ Warna dipilih: {color_name} ({color_value})")
+            time.sleep(0.5)
+
             return f'"{color_value}"'
 
-        print("Nomor warna tidak valid. Pilih 1 sampai 60.")
+        print("\n❌ Nomor warna tidak valid. Pilih 1 sampai 60.")
+        pause()
 
+
+# =========================
+# MENU ACTIONS
+# =========================
 
 def show_current_settings():
-    print("\n" + "=" * 54)
+    refresh()
+
     print("SETTING SAAT INI")
     print("=" * 54)
     print(f"MIN_DURATION      : {get_config_value('MIN_DURATION', '-')}")
@@ -188,11 +273,10 @@ def show_current_settings():
     print(f"SHADOW_COLOR      : {get_config_value('SHADOW_COLOR', '-')}")
     print("=" * 54)
 
+    pause("Tekan ENTER untuk kembali ke menu...")
+
 
 def setup_settings():
-    print("\nATUR ULANG VIDEO ANDA")
-    print("Tekan ENTER kalau ingin memakai nilai lama.\n")
-
     min_duration = ask_int(
         "MIN_DURATION",
         get_config_value("MIN_DURATION", 145)
@@ -256,7 +340,8 @@ def setup_settings():
         "SHADOW_COLOR": shadow_color,
     }
 
-    print("\n" + "=" * 54)
+    refresh()
+
     print("KONFIRMASI SETTING BARU")
     print("=" * 54)
 
@@ -265,16 +350,22 @@ def setup_settings():
 
     save = input("\nSimpan setting ini ke config.py? (y/n): ").strip().lower()
 
+    refresh()
+
     if save == "y":
         if update_config(values):
-            print("Setting berhasil disimpan.")
+            print("✅ Setting berhasil disimpan.")
         else:
-            print("Setting gagal disimpan.")
+            print("❌ Setting gagal disimpan.")
     else:
-        print("Setting tidak disimpan.")
+        print("⚠️ Setting tidak disimpan.")
+
+    pause()
 
 
 def reset_default():
+    refresh()
+
     values = {
         "MIN_DURATION": 145,
         "MAX_DURATION": 229,
@@ -288,25 +379,41 @@ def reset_default():
         "SHADOW_COLOR": '"black"',
     }
 
+    print("RESET SETTING")
+    print("=" * 50)
+
     confirm = input("Reset setting ke default? (y/n): ").strip().lower()
+
+    refresh()
 
     if confirm == "y":
         if update_config(values):
-            print("Setting berhasil direset.")
+            print("✅ Setting berhasil direset.")
         else:
-            print("Reset gagal.")
+            print("❌ Reset gagal.")
     else:
         print("Reset dibatalkan.")
 
+    pause("Tekan ENTER untuk kembali ke menu...")
+
 
 def process_all_videos():
-    print("\nBot mulai jalan...\n")
+    refresh()
 
-    judul = input("Masukkan Judul: ").strip()
+    print("MULAI PROSES VIDEO")
+    print("=" * 50)
+
+    judul = input("Masukkan Judul Video : ").strip()
+
+    refresh()
 
     if judul == "":
-        print("Judul tidak boleh kosong.")
+        print("❌ Judul tidak boleh kosong.")
+        pause()
         return
+
+    print("Memulai proses...")
+    print()
 
     input_folder = get_config_value("INPUT_FOLDER", "video")
     output_folder = get_config_value("OUTPUT_FOLDER", "cut")
@@ -320,26 +427,37 @@ def process_all_videos():
     ]
 
     if not files:
-        print(f"Folder {input_folder} kosong.")
+        print(f"❌ Folder {input_folder} kosong.")
+        pause()
         return
 
-    for file in files:
+    for index, file in enumerate(files, start=1):
         filepath = os.path.join(input_folder, file)
 
-        print(f"\nProses file: {file}")
+        print("=" * 60)
+        print(f"VIDEO {index}/{len(files)}")
+        print(f"Proses file: {file}")
+        print("=" * 60)
 
         results = process_video(filepath, judul)
 
         for output, caption in results:
-            print(f"Video selesai di cut: {output}")
+            print(f"✅ Video selesai di cut: {output}")
 
-    print(f"\nSemua video selesai diproses dan tersimpan di folder '{output_folder}'")
+    print(f"\n🔥 Semua video selesai diproses dan tersimpan di folder '{output_folder}'")
+    pause("Tekan ENTER untuk keluar...")
 
+
+# =========================
+# MAIN MENU
+# =========================
 
 def main():
     while True:
-        banner()
+        refresh()
 
+        print("MENU UTAMA")
+        print("=" * 50)
         print("1. Atur ulang video anda")
         print("2. Gunakan settingan yang tersimpan")
         print("3. Lihat setting saat ini")
@@ -354,24 +472,27 @@ def main():
             break
 
         elif pilihan == "2":
-            print("Menggunakan settingan tersimpan dari config.py")
+            refresh()
+            print("✅ Menggunakan settingan tersimpan dari config.py")
+            time.sleep(0.7)
             process_all_videos()
             break
 
         elif pilihan == "3":
             show_current_settings()
-            input("\nTekan ENTER untuk kembali ke menu...")
 
         elif pilihan == "4":
             reset_default()
-            input("\nTekan ENTER untuk kembali ke menu...")
 
         elif pilihan == "5":
+            refresh()
             print("Keluar.")
             break
 
         else:
-            print("Pilihan tidak valid.")
+            refresh()
+            print("❌ Pilihan tidak valid.")
+            pause("Tekan ENTER untuk kembali ke menu...")
 
 
 if __name__ == "__main__":
