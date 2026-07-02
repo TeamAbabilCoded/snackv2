@@ -60,7 +60,6 @@ def banner():
     print()
 
 
-
     print(R)
 
 
@@ -404,7 +403,7 @@ def process_all_videos():
     print("MULAI PROSES VIDEO")
     print("=" * 50)
 
-    judul = input("Masukkan Judul Video : ").strip()
+    judul = input(Fore.YELLOW + "[?] Masukkan Judul Video : ").strip()
 
     refresh()
 
@@ -455,17 +454,103 @@ def process_all_videos():
 
 def main():
     while True:
+
         refresh()
 
-        print("MENU UTAMA")
-        print("=" * 50)
-        print("1. Atur ulang video anda")
-        print("2. Gunakan settingan yang tersimpan")
-        print("3. Lihat setting saat ini")
-        print("4. Reset setting ke default")
-        print("5. Keluar")
+        print(
+            Fore.CYAN +
+            "==================== MENU UTAMA ====================\n"
+        )
 
-        pilihan = input("\nPilih menu [1-5]: ").strip()
+        print(
+            Fore.YELLOW +
+            "[1]" +
+            Fore.WHITE +
+            " Atur ulang video anda"
+        )
+
+        print(
+            Fore.GREEN +
+            "[2]" +
+            Fore.WHITE +
+            " Gunakan settingan yang tersimpan"
+        )
+
+        print(
+            Fore.CYAN +
+            "[3]" +
+            Fore.WHITE +
+            " Lihat setting saat ini"
+        )
+
+        print(
+            Fore.MAGENTA +
+            "[4]" +
+            Fore.WHITE +
+            " Reset setting ke default"
+        )
+
+        print(
+            Fore.RED +
+            "[5]" +
+            Fore.WHITE +
+            " Keluar"
+        )
+
+        print(
+            Fore.CYAN +
+            "\n===================================================="
+        )
+
+        pilihan = input(
+            Fore.YELLOW +
+            "\n➜ Pilih menu [1-5] : " +
+            Fore.WHITE
+        ).strip()
+
+        if pilihan == "1":
+            setup_settings()
+            process_all_videos()
+            break
+
+        elif pilihan == "2":
+            refresh()
+
+            print(
+                Fore.GREEN +
+                "✔ Menggunakan settingan tersimpan..."
+            )
+
+            time.sleep(0.7)
+
+            process_all_videos()
+            break
+
+        elif pilihan == "3":
+            show_current_settings()
+
+        elif pilihan == "4":
+            reset_default()
+
+        elif pilihan == "5":
+
+            refresh()
+
+            print(
+                Fore.RED +
+                "\nTerima kasih telah menggunakan Auto Video Cutter Pro."
+            )
+
+            break
+
+        else:
+
+            print(
+                Fore.RED +
+                "\n✖ Pilihan tidak valid."
+            )
+
+            pause()
 
         if pilihan == "1":
             setup_settings()
