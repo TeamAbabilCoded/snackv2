@@ -51,7 +51,7 @@ def banner():
     print()
 
     print(
-        W + "Author : " +
+        W + "          Author : " +
         P + "Muhammad Khairil" +
         W + " | Instagram : " +
         P + "@KarFeedd"
