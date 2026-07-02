@@ -59,9 +59,7 @@ def banner():
 
     print()
 
-    print(
-        W + "Square Video 720x720 + Background 9:16"
-    )
+
 
     print(R)
 
