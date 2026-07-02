@@ -37,30 +37,33 @@ def banner():
     C = Fore.CYAN
     R = Style.RESET_ALL
 
-    print(G + "╔══════════════════════════════════════════════════════════════════════════╗")
-    print(G + "║" + " " * 74 + G + "║")
-    print(G + "║" + P + "                      AUTO VIDEO CUTTER PRO v2.0".center(74) + G + "║")
-    print(G + "║" + " " * 74 + G + "║")
+    print()
 
-    print(G + "║" + C + "      ▄▄▄▄                        ▄▄▄▄▄▄▄".ljust(74) + G + "║")
-    print(G + "║" + C + "    ▄██▀▀██▄        ██           ███▀▀▀▀▀        ██    ██".ljust(74) + G + "║")
-    print(G + "║" + C + "    ███  ███ ██ ██ ▀██▀▀ ▄███▄   ███      ██ ██ ▀██▀▀ ▀██▀▀ ▄█▀█▄ ████▄".ljust(74) + G + "║")
-    print(G + "║" + C + "    ███▀▀███ ██ ██  ██   ██ ██   ███      ██ ██  ██    ██   ██▄█▀ ██ ▀▀".ljust(74) + G + "║")
-    print(G + "║" + C + "    ███  ███ ▀██▀█  ██   ▀███▀   ▀███████ ▀██▀█  ██    ██   ▀█▄▄▄ ██".ljust(74) + G + "║")
+    print(P + "                      AUTO VIDEO CUTTER PRO v2.0")
+    print()
 
-    print(G + "║" + " " * 74 + G + "║")
+    print(C + "      ▄▄▄▄                        ▄▄▄▄▄▄▄")
+    print(C + "    ▄██▀▀██▄        ██           ███▀▀▀▀▀        ██    ██")
+    print(C + "    ███  ███ ██ ██ ▀██▀▀ ▄███▄   ███      ██ ██ ▀██▀▀ ▀██▀▀ ▄█▀█▄ ████▄")
+    print(C + "    ███▀▀███ ██ ██  ██   ██ ██   ███      ██ ██  ██    ██   ██▄█▀ ██ ▀▀")
+    print(C + "    ███  ███ ▀██▀█  ██   ▀███▀   ▀███████ ▀██▀█  ██    ██   ▀█▄▄▄ ██")
+
+    print()
+
     print(
-        G + "║" +
-        W + "         Author : " +
+        W + "Author : " +
         P + "Muhammad Khairil" +
         W + " | Instagram : " +
-        P + "@KarFeedd".ljust(41) +
-        G + "║"
+        P + "@KarFeedd"
     )
-    print(G + "║" + " " * 74 + G + "║")
-    print(G + "║" + W + "               Square Video 720x720 + Background 9:16".center(74) + G + "║")
-    print(G + "║" + " " * 74 + G + "║")
-    print(G + "╚══════════════════════════════════════════════════════════════════════════╝" + R)
+
+    print()
+
+    print(
+        W + "Square Video 720x720 + Background 9:16"
+    )
+
+    print(R)
 
 
 def refresh():
